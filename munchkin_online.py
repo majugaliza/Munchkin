@@ -1,6 +1,7 @@
 import random
 import pygame
 import sys
+from display import display_cards
 
 # Inicializar o Pygame
 pygame.init()
@@ -23,6 +24,10 @@ MARROM_CLARO = (181, 101, 29)
 MARROM_ESCURO = (120, 72, 24)
 AMARELO = (238, 173, 45)
 
+# Carregar imagem de fundo
+background_image = pygame.image.load("assets/background.png")
+background_image = pygame.transform.scale(background_image, (tela_largura, tela_altura))
+
 # Dados do perfil do jogador
 foto_perfil = pygame.Surface((100, 100))
 foto_perfil.fill((150, 150, 150))  # Placeholder para foto de perfil
@@ -40,7 +45,7 @@ def desenhar_botao(texto, x, y, largura, altura, cor_fundo, cor_texto):
 # Tela inicial
 def tela_inicial():
     while True:
-        tela.fill(MARROM_ESCURO)
+        tela.blit(background_image, (0, 0))
 
         # Desenhar título e logotipo
         pygame.draw.rect(tela, MARROM_CLARO, (200, 80, 400, 100), border_radius=10)
@@ -66,7 +71,7 @@ def tela_inicial():
                 if botao_jogar.collidepoint(evento.pos):
                     tela_criar_partida()
                 elif botao_ver_cartas.collidepoint(evento.pos):
-                    tela_ver_cartas()
+                    display_cards()
                 elif botao_entrar_sala.collidepoint(evento.pos):
                     tela_multiplayer()
                 elif botao_criar_sala.collidepoint(evento.pos):
@@ -84,7 +89,7 @@ def tela_perfil():
     texto_digitado = nome_usuario
 
     while True:
-        tela.fill(MARROM_CLARO)
+        tela.blit(background_image, (0, 0))
 
         titulo = fonte.render("Perfil do Jogador", True, PRETO)
         tela.blit(titulo, (tela_largura // 2 - titulo.get_width() // 2, 50))
@@ -134,7 +139,7 @@ def tela_perfil():
 # Tela de ver cartas
 def tela_ver_cartas():
     while True:
-        tela.fill(BRANCO)
+        tela.blit(background_image, (0, 0))
 
         titulo = fonte.render("Cartas", True, PRETO)
         tela.blit(titulo, (tela_largura // 2 - titulo.get_width() // 2, 100))
@@ -160,7 +165,7 @@ def tela_ver_cartas():
 # Tela de criar partida
 def tela_criar_partida():
     while True:
-        tela.fill(BRANCO)
+        tela.blit(background_image, (0, 0))
 
         titulo = fonte.render("Criar Partida", True, PRETO)
         tela.blit(titulo, (tela_largura // 2 - titulo.get_width() // 2, 100))
@@ -184,7 +189,7 @@ def tela_criar_partida():
 # Tela de multiplayer (lobby)
 def tela_multiplayer():
     while True:
-        tela.fill(BRANCO)
+        tela.blit(background_image, (0, 0))
 
         titulo = fonte.render("Lobby Multiplayer", True, PRETO)
         tela.blit(titulo, (tela_largura // 2 - titulo.get_width() // 2, 100))
@@ -210,7 +215,7 @@ def tela_jogo():
     nivel_jogador = 1
 
     while True:
-        tela.fill(BRANCO)
+        tela.blit(background_image, (0, 0))
 
         # Mostrar informações do jogador
         nivel_texto = fonte.render(f"Nível: {nivel_jogador}", True, PRETO)
